@@ -9,6 +9,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -33,6 +34,11 @@ public class Board {
     @ManyToOne // Board = Many, User = one
     @JoinColumn(name = "userId") // userId 컬럼명
     private User user; // DB는 오브젝트를 저장할 수 없어 FK 사용
+
+    // mappedBy : 연관관계의 주인이 아님(난 FK가 아님), DB에 컬럼을 만들지 마시오
+    // mappedBy의 값은 필드 이름을 적으면 됨
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER) // 하나의 게시글은 여러 개의 댓글을 가짐
+    private List<Reply> reply;
 
     @CreationTimestamp
     private Timestamp createDate;
