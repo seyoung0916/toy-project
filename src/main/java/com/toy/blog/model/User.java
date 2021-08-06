@@ -1,11 +1,19 @@
 package com.toy.blog.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @Entity // User 클래스가 MySQL에 테이블이 생성됨
 public class User {
 
