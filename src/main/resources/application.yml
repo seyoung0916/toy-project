@@ -22,7 +22,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create # 기존에 있어도 새로 만듦
+      ddl-auto: update # create # 기존에 있어도 새로 만듦
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # 변수명 그대로 필드 생성
       use-new-id-generator-mappings: false
