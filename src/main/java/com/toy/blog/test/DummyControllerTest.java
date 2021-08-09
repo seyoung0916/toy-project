@@ -4,6 +4,7 @@ import com.toy.blog.model.RoleType;
 import com.toy.blog.model.User;
 import com.toy.blog.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,6 +21,17 @@ public class DummyControllerTest {
     @Autowired // 의존성 주입(DI)
     private UserRepository userRepository;
 
+    @DeleteMapping("/dummy/user/{id}")
+    public String delete(@PathVariable int id) {
+        try {
+            userRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            return "삭제에 실패했습니다. 해당 id는 DB에 없습니다.";
+        }
+
+        return "삭제되었습니다. id: " + id;
+    }
+
     // 주소가 같아도 요청 방식이 달라서 알아서 구분됨
     // email, password
     // json 데이터를 전달받을 때 @requestbody 사용
@@ -35,13 +47,13 @@ public class DummyControllerTest {
         User user = userRepository.findById(id).orElseThrow(() -> {
             return new IllegalArgumentException("수정에 실패했습니다.");
         });
-        
+
         user.setPassword(requestUser.getPassword());
         user.setEmail(requestUser.getEmail());
         // 이제 user에는 null 데이터가 없음
         // save는 id를 전달하지 않으면 insert, 전달하면 해당 id에 대한 데이터가 있을 경우 update하고 없을 경우 insert
-        userRepository.save(user);
-        return null;
+        // userRepository.save(user);
+        return user; // 업데이트된 user 정보 반환
     }
 
     @GetMapping("/dummy/users")
