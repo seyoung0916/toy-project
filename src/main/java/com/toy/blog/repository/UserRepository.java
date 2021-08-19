@@ -1,7 +1,6 @@
 package com.toy.blog.repository;
 
 import com.toy.blog.model.User;
-import org.hibernate.annotations.DynamicInsert;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
