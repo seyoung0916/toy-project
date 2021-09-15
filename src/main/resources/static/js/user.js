@@ -1,6 +1,7 @@
 let index = {
     init: function () {
-        $("#btn-save").on("click", () => {
+        $("#btn-save").on("click", () => { // function(){}, ()=>{} this를 바인딩하기 위해서
+            // function으로 사용했다면 this가 window 객체가 바인딩됨
             this.save();
         });
     },
